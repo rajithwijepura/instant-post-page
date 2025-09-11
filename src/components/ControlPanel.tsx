@@ -154,6 +154,26 @@ export const ControlPanel = ({ config, onConfigChange, onExport }: ControlPanelP
         </div>
 
         <div>
+          <Label htmlFor="text-color" className="text-sm font-medium">Text color</Label>
+          <div className="flex items-center gap-3 mt-2">
+            <Input
+              id="text-color"
+              type="color"
+              value={config.textColor}
+              onChange={(e) => updateConfig({ textColor: e.target.value })}
+              className="w-16 h-10 p-1 cursor-pointer"
+            />
+            <Input
+              type="text"
+              value={config.textColor}
+              onChange={(e) => updateConfig({ textColor: e.target.value })}
+              placeholder="#000000"
+              className="flex-1"
+            />
+          </div>
+        </div>
+
+        <div>
           <Label htmlFor="footer-text" className="text-sm font-medium">Footer / watermark</Label>
           <Input
             id="footer-text"

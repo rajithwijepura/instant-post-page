@@ -17,6 +17,7 @@ const Index = () => {
     mainText: 'Type your text. Use Enter for a new line.',
     font: 'Arial',
     fontSize: 36,
+    textColor: '#000000',
     footerText: 'ibenps.com | PPC',
     footerColor: '#6b7280',
     footerSize: 16,

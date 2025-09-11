@@ -57,7 +57,7 @@ export const PostCanvas = ({ config, onCanvasReady }: PostCanvasProps) => {
 
     // Draw main text
     if (config.mainText.trim()) {
-      ctx.fillStyle = config.backgroundColor === '#ffffff' ? '#000000' : '#ffffff';
+      ctx.fillStyle = config.textColor;
       ctx.font = `${config.fontSize}px ${config.font}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';

@@ -12,6 +12,7 @@ export interface PostConfig {
   mainText: string;
   font: string;
   fontSize: number;
+  textColor: string;
   footerText: string;
   footerColor: string;
   footerSize: number;
