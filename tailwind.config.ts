@@ -47,6 +47,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        canvas: {
+          bg: "hsl(var(--canvas-bg))",
+          border: "hsl(var(--canvas-border))",
+        },
+        control: {
+          bg: "hsl(var(--control-bg))",
+          border: "hsl(var(--control-border))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
