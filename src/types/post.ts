@@ -48,6 +48,13 @@ export const FONTS = [
   'Tahoma', 'Impact', 'Segoe UI'
 ];
 
+// System fonts that don't need loading
+export const SYSTEM_FONTS = [
+  'Arial', 'Helvetica', 'Georgia', 'Times New Roman', 'Garamond',
+  'Trebuchet MS', 'Verdana', 'Courier New', 'Lucida Sans', 'Palatino',
+  'Tahoma', 'Impact', 'Segoe UI'
+];
+
 export const FOOTER_COLORS = [
   { value: '#6b7280', label: 'Grey' },
   { value: '#ffffff', label: 'White' },

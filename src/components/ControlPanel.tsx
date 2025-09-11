@@ -1,10 +1,11 @@
-import { PostConfig, POST_SIZES, ZOOM_LEVELS, MARGIN_OPTIONS, BACKGROUND_COLORS, FONTS, FOOTER_COLORS, FOOTER_POSITIONS } from '@/types/post';
+import { PostConfig, POST_SIZES, ZOOM_LEVELS, MARGIN_OPTIONS, BACKGROUND_COLORS, FOOTER_COLORS, FOOTER_POSITIONS } from '@/types/post';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { FontSelector } from '@/components/FontSelector';
 
 interface ControlPanelProps {
   config: PostConfig;
@@ -122,22 +123,10 @@ export const ControlPanel = ({ config, onConfigChange, onExport }: ControlPanelP
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="font" className="text-sm font-medium">Font</Label>
-            <Select
+            <FontSelector
               value={config.font}
-              onValueChange={(value) => updateConfig({ font: value })}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {FONTS.map((font) => (
-                  <SelectItem key={font} value={font} style={{ fontFamily: font }}>
-                    {font}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              onChange={(font) => updateConfig({ font })}
+            />
           </div>
 
           <div>
