@@ -1,4 +1,4 @@
-import { PostConfig, POST_SIZES, ZOOM_LEVELS, MARGIN_OPTIONS, BACKGROUND_COLORS, FOOTER_COLORS, FOOTER_POSITIONS } from '@/types/post';
+import { PostConfig, POST_SIZES, ZOOM_LEVELS, MARGIN_OPTIONS, BACKGROUND_COLORS, FOOTER_COLORS, FOOTER_POSITIONS, GRADIENT_DIRECTIONS, GRADIENT_PRESETS } from '@/types/post';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
@@ -83,29 +83,131 @@ export const ControlPanel = ({ config, onConfigChange, onExport }: ControlPanelP
           </div>
         </div>
 
+        {/* Background Type */}
         <div>
-          <Label htmlFor="background-color" className="text-sm font-medium">Background color</Label>
-          <div className="grid grid-cols-6 gap-2 mt-2">
-            {BACKGROUND_COLORS.map((color) => (
-              <button
-                key={color}
-                className={`w-8 h-8 rounded border-2 transition-all ${
-                  config.backgroundColor === color 
-                    ? 'border-primary ring-2 ring-primary/20' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-                style={{ backgroundColor: color }}
-                onClick={() => updateConfig({ backgroundColor: color })}
-              />
-            ))}
-          </div>
-          <Input
-            type="color"
-            value={config.backgroundColor}
-            onChange={(e) => updateConfig({ backgroundColor: e.target.value })}
-            className="mt-2 h-10"
-          />
+          <Label className="text-sm font-medium">Background Type</Label>
+          <Select value={config.backgroundType} onValueChange={(value: 'solid' | 'gradient') => updateConfig({ backgroundType: value })}>
+            <SelectTrigger className="mt-2">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="solid">Solid Color</SelectItem>
+              <SelectItem value="gradient">Gradient</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
+
+        {/* Background Color (Solid) */}
+        {config.backgroundType === 'solid' && (
+          <div>
+            <Label className="text-sm font-medium">Background Color</Label>
+            <div className="grid grid-cols-6 gap-2 mt-2">
+              {BACKGROUND_COLORS.map((color) => (
+                <button
+                  key={color}
+                  className={`w-8 h-8 rounded border-2 transition-all ${
+                    config.backgroundColor === color 
+                      ? 'border-primary ring-2 ring-primary/20' 
+                      : 'border-border hover:border-primary/50'
+                  }`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => updateConfig({ backgroundColor: color })}
+                />
+              ))}
+            </div>
+            <Input
+              type="color"
+              value={config.backgroundColor}
+              onChange={(e) => updateConfig({ backgroundColor: e.target.value })}
+              className="mt-2 h-10"
+            />
+          </div>
+        )}
+
+        {/* Gradient Options */}
+        {config.backgroundType === 'gradient' && (
+          <div className="space-y-4">
+            {/* Gradient Direction */}
+            <div>
+              <Label className="text-sm font-medium">Gradient Direction</Label>
+              <Select value={config.gradientDirection} onValueChange={(value: string) => updateConfig({ gradientDirection: value })}>
+                <SelectTrigger className="mt-2">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {GRADIENT_DIRECTIONS.map((direction) => (
+                    <SelectItem key={direction.value} value={direction.value}>
+                      {direction.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Gradient Colors */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-sm font-medium">Start Color</Label>
+                <div className="flex gap-2 mt-2">
+                  <Input
+                    type="color"
+                    value={config.gradientStart}
+                    onChange={(e) => updateConfig({ gradientStart: e.target.value })}
+                    className="w-12 h-10 p-1"
+                  />
+                  <Input
+                    type="text"
+                    value={config.gradientStart}
+                    onChange={(e) => updateConfig({ gradientStart: e.target.value })}
+                    placeholder="#667eea"
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+              <div>
+                <Label className="text-sm font-medium">End Color</Label>
+                <div className="flex gap-2 mt-2">
+                  <Input
+                    type="color"
+                    value={config.gradientEnd}
+                    onChange={(e) => updateConfig({ gradientEnd: e.target.value })}
+                    className="w-12 h-10 p-1"
+                  />
+                  <Input
+                    type="text"
+                    value={config.gradientEnd}
+                    onChange={(e) => updateConfig({ gradientEnd: e.target.value })}
+                    placeholder="#764ba2"
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Gradient Presets */}
+            <div>
+              <Label className="text-sm font-medium">Gradient Presets</Label>
+              <div className="grid grid-cols-3 gap-2 mt-2">
+                {GRADIENT_PRESETS.map((preset) => (
+                  <button
+                    key={preset.name}
+                    className="h-10 rounded border border-border cursor-pointer hover:scale-105 transition-transform text-xs font-medium text-white"
+                    style={{
+                      background: `linear-gradient(to right, ${preset.start}, ${preset.end})`
+                    }}
+                    onClick={() => updateConfig({ 
+                      gradientStart: preset.start, 
+                      gradientEnd: preset.end 
+                    })}
+                    title={preset.name}
+                  >
+                    {preset.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         <div>
           <Label htmlFor="main-text" className="text-sm font-medium">Main text</Label>
@@ -166,7 +268,7 @@ export const ControlPanel = ({ config, onConfigChange, onExport }: ControlPanelP
           <Label htmlFor="footer-text" className="text-sm font-medium">Footer / watermark</Label>
           <Input
             id="footer-text"
-            placeholder="ibenps.com | PPC"
+            placeholder="instasoar.com"
             value={config.footerText}
             onChange={(e) => updateConfig({ footerText: e.target.value })}
             className="mt-2"

@@ -9,6 +9,10 @@ export interface PostConfig {
   zoom: number;
   margin: 'narrow' | 'medium' | 'wide';
   backgroundColor: string;
+  backgroundType: 'solid' | 'gradient';
+  gradientDirection: string;
+  gradientStart: string;
+  gradientEnd: string;
   mainText: string;
   font: string;
   fontSize: number;
@@ -75,4 +79,24 @@ export const FOOTER_POSITIONS = [
   { value: 'top-center' as const, label: 'Top Center' },
   { value: 'top-left' as const, label: 'Top Left' },
   { value: 'top-right' as const, label: 'Top Right' },
+];
+
+export const GRADIENT_DIRECTIONS = [
+  { value: 'to-r', label: 'Left to Right' },
+  { value: 'to-l', label: 'Right to Left' },
+  { value: 'to-b', label: 'Top to Bottom' },
+  { value: 'to-t', label: 'Bottom to Top' },
+  { value: 'to-br', label: 'Top-Left to Bottom-Right' },
+  { value: 'to-bl', label: 'Top-Right to Bottom-Left' },
+  { value: 'to-tr', label: 'Bottom-Left to Top-Right' },
+  { value: 'to-tl', label: 'Bottom-Right to Top-Left' },
+];
+
+export const GRADIENT_PRESETS = [
+  { name: 'Ocean', start: '#667eea', end: '#764ba2' },
+  { name: 'Sunset', start: '#f093fb', end: '#f5576c' },
+  { name: 'Forest', start: '#4facfe', end: '#00f2fe' },
+  { name: 'Purple', start: '#a8edea', end: '#fed6e3' },
+  { name: 'Fire', start: '#ff9a9e', end: '#fecfef' },
+  { name: 'Sky', start: '#a1c4fd', end: '#c2e9fb' },
 ];

@@ -19,6 +19,20 @@ export const PostCanvas = ({ config, onCanvasReady }: PostCanvasProps) => {
     }
   };
 
+  const getGradientCoordinates = (direction: string, width: number, height: number): [number, number, number, number] => {
+    const coords: Record<string, [number, number, number, number]> = {
+      'to-r': [0, 0, width, 0],
+      'to-l': [width, 0, 0, 0],
+      'to-b': [0, 0, 0, height],
+      'to-t': [0, height, 0, 0],
+      'to-br': [0, 0, width, height],
+      'to-bl': [width, 0, 0, height],
+      'to-tr': [0, height, width, 0],
+      'to-tl': [width, height, 0, 0],
+    };
+    return coords[direction] || coords['to-r'];
+  };
+
   const getFooterPosition = (position: string, canvasWidth: number, canvasHeight: number, padding: number) => {
     const positions = {
       'bottom-center': { x: canvasWidth / 2, y: canvasHeight - padding, align: 'center' },
@@ -38,8 +52,9 @@ export const PostCanvas = ({ config, onCanvasReady }: PostCanvasProps) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    const displayWidth = 400;
+    // Set canvas size with zoom - responsive to screen size
+    const baseDisplayWidth = window.innerWidth >= 1024 ? Math.min(800, window.innerWidth * 0.5) : 400;
+    const displayWidth = (baseDisplayWidth * config.zoom) / 100;
     const aspectRatio = config.size.height / config.size.width;
     const displayHeight = displayWidth * aspectRatio;
     
@@ -48,8 +63,17 @@ export const PostCanvas = ({ config, onCanvasReady }: PostCanvasProps) => {
     canvas.style.width = `${displayWidth}px`;
     canvas.style.height = `${displayHeight}px`;
 
-    // Clear canvas
-    ctx.fillStyle = config.backgroundColor;
+    // Clear canvas and apply background
+    if (config.backgroundType === 'gradient') {
+      const gradient = ctx.createLinearGradient(
+        ...getGradientCoordinates(config.gradientDirection, canvas.width, canvas.height)
+      );
+      gradient.addColorStop(0, config.gradientStart);
+      gradient.addColorStop(1, config.gradientEnd);
+      ctx.fillStyle = gradient;
+    } else {
+      ctx.fillStyle = config.backgroundColor;
+    }
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Calculate margins

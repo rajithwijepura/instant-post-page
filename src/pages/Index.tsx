@@ -14,6 +14,10 @@ const Index = () => {
     zoom: 100,
     margin: 'medium',
     backgroundColor: '#ffffff',
+    backgroundType: 'solid',
+    gradientDirection: 'to-r',
+    gradientStart: '#667eea',
+    gradientEnd: '#764ba2',
     mainText: 'Type your text. Use Enter for a new line.',
     font: 'Arial',
     fontSize: 36,
@@ -65,8 +69,8 @@ const Index = () => {
       </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="px-2 py-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-4">
           {/* Control Panel */}
           <div className="order-2 lg:order-1">
             <ControlPanel
@@ -78,7 +82,7 @@ const Index = () => {
 
           {/* Preview */}
           <div className="order-1 lg:order-2">
-            <div className="sticky top-8">
+            <div className="sticky top-4">
               <h2 className="text-lg font-semibold mb-4">Preview</h2>
               <PostCanvas
                 config={config}

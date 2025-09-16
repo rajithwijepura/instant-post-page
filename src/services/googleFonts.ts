@@ -18,7 +18,7 @@ export const POPULAR_GOOGLE_FONTS = [
   'Dancing Script', 'Pacifico', 'Lobster', 'Great Vibes', 'Indie Flower'
 ];
 
-const GOOGLE_FONTS_API_KEY = 'AIzaSyC8xF9Z8QYV0qGmMX5K6i-_YeQLW3Zr4JU'; // Public demo key
+const GOOGLE_FONTS_API_KEY = 'AIzaSyBBJotRqt7JQu5lrOHgskhcsV-3mVerG70';
 
 let fontCache: GoogleFont[] | null = null;
 
